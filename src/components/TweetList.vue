@@ -15,7 +15,6 @@
 <script>
 import moment from 'moment';
 import "moment/locale/es";
-import { Close } from './icons/Close';
 import { deleteTweetApi } from '../api/tweet';
 
 export default {
@@ -24,7 +23,7 @@ export default {
         reloadTweets: Function,
     },
     components: {
-        Close,
+        
     },
     setup(props) {
         const dateFormat = (date) => {

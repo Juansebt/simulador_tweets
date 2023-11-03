@@ -2,15 +2,15 @@
   <div class="container tweet-form" :class="{ open: showForm }">
     <form @submit.prevent="sendTweet">
         <div class="form-floating">
-            <input type="text" class="form-control" id="floatingUsername" placeholder="Ingresar nombre" v-model="userName">
-            <label for="floatingUsername">Ingresar nombre</label>
+            <input type="text" class="form-control" id="floatingUsername" placeholder="Ingrese su nombre" v-model="userName">
+            <label for="floatingUsername">Ingrese su nombre</label>
         </div>
         <div class="form-floating">
-            <textarea class="form-control" id="floatingTweet" placeholder="Escribe el tweet" v-model="tweet" style="height: 100px"></textarea>
-            <label for="floatingTweet">Escribe el tweet</label>
+            <textarea class="form-control" id="floatingTweet" placeholder="Escribe el Tweet" v-model="tweet" style="height: 100px"></textarea>
+            <label for="floatingTweet">Escribe el Tweet</label>
         </div>
         <button type="submit" class="btn btn-outline-primary">
-            Enviar tweet
+            Enviar Tweet
         </button>
     </form>
     <hr>
@@ -72,6 +72,10 @@ export default {
         button {
             width: 100%;
             margin-top: 10px;
+        }
+
+        label {
+            opacity: 50%;
         }
     }
 }
