@@ -2,7 +2,7 @@
   <div class="container tweet-form" :class="{ open: showForm }">
     <form @submit.prevent="sendTweet">
         <div class="form-floating">
-            <input type="text" class="form-control" id="floatingUsername" placeholder="Ingrese su nombre" v-model="userName">
+            <input type="text" class="form-control" id="floatingUsername" placeholder="Ingrese su nombre" v-model="username">
             <label for="floatingUsername">Ingrese su nombre</label>
         </div>
         <div class="form-floating">
@@ -22,33 +22,28 @@ import {ref} from "vue";
 import {saveTweetApi} from '../api/tweet';
 
 export default {
-    props: {
-        showForm: Boolean,
-        reloadTweets: Function,
-        openCloseForm: Function,
-    },
-    setup(props) {
-        let userName = ref("");
-        let tweet = ref("");
+  props: {
+    showForm: Boolean,
+    openCloseForm: Function,
+    reloadTweets: Function,
+  },
+  setup(props) {
+    let username = ref("");
+    let tweet = ref("");
 
-        const sendTweet = () => {
-            if (!tweet.value || !userName.value) return;
+    const sendTweet = () => {
+      if (!tweet.value || !username.value) return;
 
-            saveTweetApi(tweet.value, userName.value);
+      saveTweetApi(tweet.value, username.value);
+      tweet.value = "";
+      username.value = "";
+      props.reloadTweets();
+      props.openCloseForm();
+    };
 
-            tweet.value = "";
-            userName.value = "";
-            props.reloadTweets();
-            props.openCloseForm();
-        };
-
-        return {
-            sendTweet,
-            userName,
-            tweet,
-        }
-    },
-}
+    return { sendTweet, username, tweet };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

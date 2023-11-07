@@ -2,12 +2,12 @@
   <div class="container">
     <h1 class="text-center mb-4">Lista de tweets</h1>
     <hr class="mb-5">
-    <div class="alert alert-warning text-center" role="alert" v-if="listTweets.length === 0">No hay tweets!</div>
-    <div class="tweet" v-for="tweet in listTweets" :key="tweet.id">
-        <p class="tweet__title">{{tweet.userName}}</p>
+    <div class="alert alert-warning text-center" role="alert" v-if="tweets.length === 0">No hay tweets!</div>
+    <div class="tweet" v-for="tweet in tweets" :key="tweet.id">
+        <p class="tweet__title">{{tweet.username}}</p>
         <p class="tweet__text">{{tweet.tweet}}</p>
-        <span>{{ dateFormat(tweet.fechaCreacion) }}</span>
-        <button class="btn fa fa-close" type="button" @click="deleteTweet(tweet.id)"></button>
+        <span>{{ formatDate(tweet.createdAt) }}</span>
+        <i class="fa fa-close" @click="deleteTweet(tweet.id)"></i>
     </div>
   </div>
 </template>
@@ -15,32 +15,33 @@
 <script>
 import moment from 'moment';
 import "moment/locale/es";
-import { deleteTweetApi } from '../api/tweet';
+import { deleteTweetApi } from "../api/tweet";
 
 export default {
-    props: {
-        listTweets: Array,
-        reloadTweets: Function,
-    },
-    components: {
-        
-    },
-    setup(props) {
-        const dateFormat = (date) => {
-            return moment(date).fromNow();
-        };
+  props: {
+    tweets: Array,
+    reloadTweets: Function,
+  },
+  components: {
 
-        const deleteTweet = (idTweet) => {
-            deleteTweetApi(idTweet);
-            props.reloadTweets();
-        };
+},
+  setup(props) {
+    const formatDate = (date) => {
+      return moment(date).fromNow();
+    };
 
-        return {
-            dateFormat,
-            deleteTweet,
-        }
-    },
+    const deleteTweet = (idTweet) => {
+      deleteTweetApi(idTweet);
+      props.reloadTweets();
+    };
+
+    return {
+      formatDate,
+      deleteTweet,
+    };
+  },
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -83,12 +84,13 @@ export default {
         border: 1px solid #ccc;
     }
 
-     button.fa-close {
+     i.fa-close {
         border-radius: 50%;
         border: 0;
 
         &:hover {
             color: #f00;
+            cursor: pointer;
         }
     }
 }
